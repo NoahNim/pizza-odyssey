@@ -54,7 +54,6 @@ PizzaShop.prototype.setDrivers = function () {
 //   tbEl.appendChild(trEl);
 //   id.appendChild(tbEl);
 // }
-// document.body.appendChild(tbEl)
 
 var ballardMinPizza = [0, 0, 2, 15, 12, 5];
 var ballardMaxPizza = [4, 7, 15, 35, 31, 20];
@@ -63,11 +62,35 @@ var ballardMaxDelivery = [4, 4, 4, 8, 12, 11];
 
 var ballard = new PizzaShop('Ballard', ballardMinPizza, ballardMaxPizza, ballardMinDelivery, ballardMaxDelivery)
 
-var ballardRowOne = ['Time', 'Pizzas Sold', 'Pizzas Delivered', 'Drivers Recomennded']
-var ballardRowTwo = ['8am-11pm', ballard.pizzaSold, ballard.deliveries, ballard.drivers]
-
 ballard.setPizzaSold();
 ballard.setDeliveries();
 ballard.setDrivers();
-ballard.tableRowMaker('ballardtable', ballardRowOne)
-ballard.tableRowMaker('ballardtable', ballardRowTwo)
+
+var table = document.createElement('table');
+
+var ballardRowTitle = ['Ballard']
+var ballardOneLables = ['Time', 'Pizza Sold', 'Deliveries Made', 'Drivers Recomennded'];
+var ballardTwoLables = ['8am-11am', ballard.pizzaSold[0], ballard.deliveries[0], ballard.drivers[0]];
+var ballardThreeLables = ['11am-2pm', ballard.pizzaSold[1], ballard.deliveries[1], ballard.drivers[1]];
+
+var ballardTitle = createTableRow(ballardRowTitle)
+var ballardOne= createTableRow(ballardOneLables);
+var ballardTwo = createTableRow(ballardTwoLables);
+var ballardThree = createTableRow(ballardThreeLables);
+
+function createTableRow(stringArray){
+  var newTH = document.createElement('th')
+  var newTR = document.createElement('tr');
+  for(var i=0; i<stringArray.length; i++){
+    var newTD = document.createElement('td');
+    newTD.textContent = stringArray[i];
+    newTR.appendChild(newTD);
+  }
+  return newTR;
+}
+
+table.appendChild(ballardTitle)
+table.appendChild(ballardOne);
+table.appendChild(ballardTwo);
+table.appendChild(ballardThree);
+document.body.appendChild(table);
