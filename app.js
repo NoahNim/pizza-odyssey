@@ -42,19 +42,6 @@ PizzaShop.prototype.setDrivers = function () {
   this.drivers = deliveryDrivers;
 };
 
-// var tbEl = document.createElement('table');
-// PizzaShop.prototype.tableRowMaker = function(id, inputArray) {
-//   id = document.getElementById('');
-//   var trEl = document.createElement('tr');
-//   for(var i = 0; i < inputArray.length; i++) {
-//     var tdEl = document.createElement('td');
-//     tdEl.textContent = inputArray[i];
-//     trEl.appendChild(tdEl);
-//   }
-//   tbEl.appendChild(trEl);
-//   id.appendChild(tbEl);
-// }
-
 var ballardMinPizza = [0, 0, 2, 15, 12, 5];
 var ballardMaxPizza = [4, 7, 15, 35, 31, 20];
 var ballardMinDelivery = [0, 0, 1, 3, 5, 6];
