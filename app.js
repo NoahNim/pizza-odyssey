@@ -36,14 +36,14 @@ function PizzaShop(place, minPizza, maxPizza, minDelivery, maxDelivery){
   this.maxPizza = maxPizza;
   this.minDelivery = minDelivery;
   this.maxDelivery = maxDelivery;
-  this.hoursOpen = ['8am-11am', '11am-2pm', '2pm-5pm', '5pm-8pm', '8pm-11pm', '11pm-2am']
+  this.hoursOpen = ['8am-11am', '11am-2pm', '2pm-5pm', '5pm-8pm', '8pm-11pm', '11pm-2am'];
 }
 
 // Pizzas Sold prototype
 PizzaShop.prototype.setPizzaSold = function () {
   var min = this.minPizza;
   var max = this.maxPizza;
-  var pizzasSold = []
+  var pizzasSold = [];
   for(var i = 0; i < min.length; i++){
     pizzasSold.push(Math.floor(Math.random() * (max[i] - min[i] + 1)) + min[i]);
   }
@@ -54,7 +54,7 @@ PizzaShop.prototype.setPizzaSold = function () {
 PizzaShop.prototype.setDeliveries = function () {
   var min = this.minDelivery;
   var max = this.maxDelivery;
-  var deliveriesMade = []
+  var deliveriesMade = [];
   for(var i = 0; i < min.length; i++){
     deliveriesMade.push(Math.floor(Math.random() * (max[i] - min[i] + 1)) + min[i]);
   }
@@ -132,7 +132,47 @@ PizzaShop.prototype.render = function() {
   }
 
   document.body.appendChild(shopTable);
+};
+
+function genStoreData(min, max){
+  var times = ['8am-11am', '11am-2pm', '2pm-5pm', '5pm-8pm', '8pm-11pm', '11pm-2am'];
+  var result = [];
+  for(var i = 0; i < times.length; i++) {
+    var arrayForHr = [times[i], min, max, min, max];
+    result.push(arrayForHr);
+  }
+  console.log('We turned the form data into this ');
+  console.table(result);
+  return result;
 }
+
+function newStoreFromForm(place, minPizzas, maxPizzas, minDelivery, maxDelivery){
+  var newStoreData = genStoreData(minPizzas, maxPizzas, minDelivery, maxDelivery);
+  var newStore = new PizzaShop(place, newStoreData);
+  newStore.setPizzaSold();
+  newStore.setDeliveries();
+  newStore.setDrivers();
+  newStore.render();
+}
+
+var thePizzaForm = document.getElementById('pizzaForm');
+console.log(thePizzaForm);
+thePizzaForm.addEventListener('submit', function(event){
+  event.preventDefault();
+  console.log('The event for pizzaform has toggled');
+  var place = event.target.place.value;
+  console.log('place is: ' + place);
+  var minPizzasInput = parseInt(event.target.minPizza.value);
+  console.log('Min pizza is: ' + minPizzasInput);
+  var maxPizzasInput = parseInt(event.target.maxPizza.value);
+  console.log('Max pizza is: ' + maxPizzasInput);
+  var minDeliveryInput = parseInt(event.target.minDelivery.value);
+  console.log('Min delivery is ' + minDeliveryInput);
+  var maxDeliveryInput = parseInt(event.target.maxDelivery.value);
+  console.log('Max delivery is ' + maxDeliveryInput);
+  newStoreFromForm(place, minPizzasInput, maxPizzasInput, minDeliveryInput, maxDeliveryInput);
+  newStoreFromForm.render();
+});
 
 // Creating the pizza shops
 var ballard = new PizzaShop('Ballard', ballardMinPizza, ballardMaxPizza, ballardMinDelivery, ballardMaxDelivery);
